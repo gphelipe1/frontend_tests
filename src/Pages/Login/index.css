@@ -1,0 +1,31 @@
+.login{
+    text-align: center;
+}
+@media only screen and (min-width: 768px){
+    .Background-image{
+        display: block;
+        margin-left: 20vh;
+        margin-right: auto;
+        width: 70%;
+        height:auto;
+        position:absolute;
+        animation: rotation 30s infinite linear;
+    }
+
+    @keyframes rotation {
+        from {
+        transform: rotate(0deg);
+        }
+        to {
+        transform: rotate(359deg);
+        }
+    }
+
+
+}
+@media only screen and (max-width: 768px){
+    .Background-image{
+        display: none;
+        visibility: hidden;
+    }
+}
