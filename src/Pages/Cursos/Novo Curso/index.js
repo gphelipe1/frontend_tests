@@ -37,7 +37,6 @@ function NewCourse() {
             setTagKey(tagKey + 1);
             e.target.value=setTagConteudo("")
         }
-        console.log(conteudoList)
     }
 
 
@@ -56,46 +55,54 @@ function NewCourse() {
     return (
         <div className="fullContent">
             <Header path={thispath}/>
+
+            <h2 className="page-title">Novo Curso</h2>
             <form>
                 <div className="forms-div">
                     <div className = "input-divs">
                         <label className="label-form" for="nome_curso">Nome do Curso</label>
-                        <input  className="input-form long-form" type="text" id="nome_curso"/>
+                        <input  id="nome_curso_input" className="input-form long-form" type="text" id="nome_curso"/>
                         
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="centro_curso">Centro de Curso</label>
-                        <input  className="input-form long-form" type="text" id="centro_curso"/>
+                        <input  id="centro_curso_input" className="input-form long-form" type="text" id="centro_curso"/>
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="carga">Carga Horária</label>
-                        <input className="input-form" type="text" id="carga"/>
+                        <input id="carga_h_input" className="input-form" type="text" id="carga"/>
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="modal">Modalidade</label>
-                        <input  className="input-form" type="text" id="modal"/>
+                        <input id="modalidade_input" className="input-form" type="text" id="modal"/>
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="conteudo" >Conteúdo</label>
-                        <input  className="input-form" type="text" id="conteudo" value={tagConteudo} onChange={handleTagChange} onKeyDown={myFunction}/>
+                        <input className="input-form" type="text" id="conteudo" value={tagConteudo} onChange={handleTagChange} onKeyDown={myFunction}/>
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="publico_alvo">Público Alvo</label>
-                        <textarea rows="4" cols="50"  className="input-form" type="text" id="publico_alvo"/>
+                        <textarea id="publico_input" rows="4" cols="50"  className="input-form" type="text" id="publico_alvo"/>
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="obs">Observações</label>
-                        <textarea rows="4" cols="50"  className="input-form" type="text" id="obs"/>
+                        <textarea id="obs_input" rows="4" cols="50"  className="input-form" type="text" id="obs"/>
                     </div>
                     
+                    
                 </div>
-            </form>
-            <div className="bottom-content-div">
-                <span className="title-span">Conteúdo</span>
-                <div className="tags-ul">
-                    {Tags}
-                </div>
-            </div>
+                </form>
+            
+                <div className="bottom-content-div">
+                    <span className="title-span">Conteúdo</span>
+                    <div className="tags-ul">
+                        {Tags}
+                    </div>
+                    <div className="buttons-div">
+                        <button className="border-btn cancel-btn" id="btn-cancelar">Cancelar</button>
+                        <button className="btn-creates add-btn"id="btn-adicionar">Adicionar</button>
+                    </div>
+                </div> 
         </div>
     )
 }

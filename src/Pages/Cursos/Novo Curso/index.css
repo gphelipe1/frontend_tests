@@ -19,6 +19,7 @@
 .bottom-content-div{
     margin-left: 150px;
     margin-top: 30px;
+    max-width: 1200px;
 }
 
 .tags-ul{
@@ -29,5 +30,25 @@
 }
 ul {
     list-style-type: none;
-  }
+}
+
+.buttons-div{
+    max-width:1169px;
+}
+.add-btn{
+    width: 100px;
+    height: 25px;
+    margin-top: 25px;
+    float:right; 
+}
+.cancel-btn{
+    width: 100px;
+    height: 25px;
+    margin-top: 25px;
+}
+
+.page-title{
+    margin-left: 150px;
+    margin-bottom: 30px;
+}
   
