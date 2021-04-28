@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react'
 import Sidebar from './Components/Sidebar'
 import Cursos from './Pages/Cursos'
-
+import NewCourse from './Pages/Cursos/Novo Curso/index'
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <Sidebar/>      
       </div>
       <div className="content">
-        <Cursos/>
+        <NewCourse/>
       </div>
     </div>
   );

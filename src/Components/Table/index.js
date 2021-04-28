@@ -1,11 +1,14 @@
 import React, { Fragment } from "react";
 import { Table } from "reactstrap";
 import './index.css'
+import InputTag from '../SearchInput/index'
 
 function TableTag(props) {
   
   return ( 
+    
     <Fragment>
+        <InputTag className = "search-btn"/>
           <Table>
             <thead>
               <tr>

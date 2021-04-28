@@ -28,8 +28,7 @@ function Cursos() {
       
   const thispath = [
     "Menu de Cursos",
-    "Cursos",
-    "Novo Curso"
+    "Cursos", 
   ]
 
   return (
@@ -39,7 +38,6 @@ function Cursos() {
           <button className="btn-creates btn">
             Novo Curso
             </button>
-            <InputTag/>
         </div>
         <TableCurso Headers={['Nome', 'Código', 'Turma', 'Editar', 'Detalhes']} Rows={Cursos}/>
       </div>
