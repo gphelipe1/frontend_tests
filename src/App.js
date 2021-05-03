@@ -12,7 +12,7 @@ function App() {
         <Sidebar/>      
       </div>
       <div className="content">
-        <NewCourse/>
+        <Cursos/>
       </div>
     </div>
   );

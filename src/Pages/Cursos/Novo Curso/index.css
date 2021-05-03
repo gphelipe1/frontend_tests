@@ -34,6 +34,7 @@ ul {
 
 .buttons-div{
     max-width:1169px;
+    margin-top: 50px;
 }
 .add-btn{
     width: 100px;
@@ -51,4 +52,3 @@ ul {
     margin-left: 150px;
     margin-bottom: 30px;
 }
-  

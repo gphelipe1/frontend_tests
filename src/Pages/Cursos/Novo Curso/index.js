@@ -4,7 +4,11 @@ import './index.css'
 import Header from '../../../Components/Header/index'
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 
@@ -12,6 +16,7 @@ function NewCourse() {
     const [tagConteudo, setTagConteudo] = useState("");
     const [conteudoList,addConteudo] =  useState([]);
     const [tagKey, setTagKey] = useState(0);
+    const [modal, setModal] = useState('');
 
     const thispath=[
         "Menu de Cursos",
@@ -19,7 +24,15 @@ function NewCourse() {
         "Novo Curso",
     ]
 
-    const useStyles = makeStyles({
+    const defineClass = () => {
+        if(conteudoList !== []){
+            return "hidden"
+        }else{
+            return "hidden"
+        }
+    }
+
+    const useStyles = makeStyles((theme)=>({
         root: {
             background: '#61958C',
             color:'white',
@@ -27,8 +40,10 @@ function NewCourse() {
             marginRight: '10px',
             marginTop: '10px;'
         },
-    });
-    const chipClass=useStyles();
+        
+    }));
+
+    const classes=useStyles();
 
     const myFunction = (e) => {
         if(e.key == 'Enter'){
@@ -47,8 +62,13 @@ function NewCourse() {
 
     const handleTagChange = (event) => setTagConteudo(event.target.value)
 
+    const handleModalChange = (event) => {
+        setModal(event.target.value);
+        console.log(modal)
+      };
+
     const Tags = conteudoList.map((value, index) => {
-        return <Chip className={chipClass.root} key={value.key} label={value.tagLabel} onDelete={handleDelete(value)}/>
+        return <Chip className={classes.root} key={value.key} label={value.tagLabel} onDelete={handleDelete(value)}/>
         
     })
 
@@ -73,8 +93,8 @@ function NewCourse() {
                         <input id="carga_h_input" className="input-form" type="text" id="carga"/>
                     </div>
                     <div className = "input-divs">
-                        <label className="label-form" for="modal">Modalidade</label>
-                        <input id="modalidade_input" className="input-form" type="text" id="modal"/>
+                        <label className="label-form" for="carga">Modalidade</label>
+                        <input id="modal_input" className="input-form" type="text" id="carga"/>
                     </div>
                     <div className = "input-divs">
                         <label className="label-form" for="conteudo" >Conteúdo</label>
