@@ -8,7 +8,6 @@ function getData(props_data) {
       item
     );
   });
-  //setOptions(dados)
   return dados;
 }
 
@@ -26,19 +25,23 @@ class TableELement extends Component {
     super(props);  
     const originalData = getData(this.props.Rows )  ;
     const columns = getColumns(this.props.Headers);
-    
+
     this.state = {
       originalData,
       columns,
+      filteredData: [originalData],
+      searchTerm:"",
       selection: [],
       selectAll: false
     };
+
   }
+
+
   render(){
     return ( 
-      
       <Fragment>
-          <input className="search-btn" type="search" id="myInput"  placeholder="Procurar" title="search"/>
+          <input className="search-btn" type="search" id="myInput"  onChange={(event)=>{this.setState({searchTerm: event.target.value})}} placeholder="Procurar" title="search"/>
             <Table>
               <thead>
               <tr>
@@ -48,12 +51,21 @@ class TableELement extends Component {
               </tr>
             </thead>
             <tbody>
-                    {this.state.originalData.map((value,key) => {
+                    {this.state.originalData.filter((val)=>{
+                      if(this.state.searchTerm==""){
+                        return val
+                      }else{
+                        for(let chave in val){
+                          if(val[chave].toString().toLowerCase().includes(this.state.searchTerm.toLowerCase())){
+                            return val
+                          }
+                        }
+                      }
+                    }).map((value,key) => {
                       return(
                         <tr>
                           {
                             Object.keys(value).map((key,i)=>{
-                              console.log(value[key])
                               return <td>{value[key]}</td>
                             })
                           }
