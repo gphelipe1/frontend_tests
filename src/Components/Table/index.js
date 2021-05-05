@@ -1,7 +1,6 @@
-import React, { useState,Fragment,Component } from "react";
+import React, {Fragment,Component } from "react";
 import './index.css';
 import { Table } from "reactstrap";
-import Pagination from './Pagination'
 
 function getData(props_data) {
   const dados = props_data.map((item,key) => {
@@ -24,33 +23,77 @@ function getColumns(data) {
 class TableELement extends Component {
   constructor(props) {
     super(props);  
-    const originalData = getData(this.props.Rows )  ;
+    const originalData = getData(this.props.Rows );
     const columns = getColumns(this.props.Headers);
-    const filteredData = getData(originalData)
+    const slicedData = getData(originalData)
 
     this.state = {
       originalData,
       columns,
-      filteredData,
+      slicedData,
       searchTerm:"",
-      slicedData: [],
       currentPage: 1,
-      elementPerPage: 10,
+      elementPerPage: 17,
+      indexOfLastElement:0,
+      indexOfFirstElement: 0,
+      pagesLength: 0,
+      unextable: false,
+      unprevable: true
     };
 
     this.paginate = this.paginate.bind(this)
+    this.prev = this.prev.bind(this)
+    this.next = this.next.bind(this)
+  }
+  
+  updatePages(){
+    if(this.state.currentPage >= 1){
+      this.setState({unprevable: false})
+    }else if(this.state.currentPage < 1){
+      this.setState({unprevable: true})
+    }
+    if(this.state.currentPage <= this.state.pagesLength && this.state.currentPage >= 1){
+      this.setState({unextable: false})
+    }else if(this.state.currentPage > this.state.pagesLength){
+      this.setState({unextable: true})
+    }
+  }
+
+  prev(){
+    let cur = this.state.currentPage;
+    let next = cur - 1
+    this.setState({currentPage: next})
+    this.updatePages() 
+  }
+
+  next(){
+    let cur = this.state.currentPage;
+    let next = cur + 1
+    this.setState({currentPage: next})
+    this.updatePages()
+
   }
 
   paginate(pageNumber){
-    this.state.currentPage = pageNumber
-    console.log(this.state.currentPage)
+    this.setState({currentPage: pageNumber})
+    this.updatePages()
   }
   
+
   render(){
 
-    const indexOfLastElement = this.state.currentPage * this.state.elementPerPage;
-    const indexOfFirstElement = indexOfLastElement - this.state.elementPerPage;
-    this.state.filteredData = this.state.originalData.slice(indexOfFirstElement, indexOfLastElement)
+    const pageNumbers=[];
+    for(var i=1; i <= Math.ceil(this.state.originalData.length/this.state.elementPerPage); i++){
+      pageNumbers.push(i)
+    }
+    
+
+    this.state.pagesLength = pageNumbers.length
+
+
+    this.state.indexOfLastElement = this.state.currentPage * this.state.elementPerPage;
+    this.state.indexOfFirstElement = this.state.indexOfLastElement - this.state.elementPerPage;
+    this.state.slicedData = this.state.originalData.slice(this.state.indexOfFirstElement, this.state.indexOfLastElement)
 
     return ( 
       <div>
@@ -59,14 +102,14 @@ class TableELement extends Component {
           
             <Table>
               <thead>
-              <tr>
+              <tr >
                 {this.state.columns.map((value)=>{
                   return [ <th>{value}</th> ]
                 })}
               </tr>
             </thead>
             <tbody>
-                    {this.state.searchTerm == "" ? this.state.filteredData.map((value,key) => {
+                    {this.state.searchTerm == "" ? this.state.slicedData.map((value,key) => {
                       return(
                         <tr>
                           {
@@ -99,7 +142,17 @@ class TableELement extends Component {
                     })}
               </tbody>
             </Table>
-            <Pagination elementPerPage={this.state.elementPerPage} totalElement={this.state.originalData.length} paginate={this.paginate}/>
+            <nav>
+            <ul className = "pagination">
+                <button onClick={() => this.prev()} disabled={this.state.unprevable}> Prev </button>
+                {pageNumbers.map(number => {
+                    return( < li className="page-item">
+                        <button onClick={()=>this.paginate(number)} className ="page-link">{number}</button>
+                    </li>);
+                })}
+                <button onClick={() => this.next()} disabled={this.state.unextable} >Next</button>
+            </ul>
+        </nav>
       </Fragment>
       
       </div>
