@@ -36,55 +36,37 @@ class TableELement extends Component {
       elementPerPage: 17,
       indexOfLastElement:0,
       indexOfFirstElement: 0,
+      paginationStartINdex: 0,
+      paginationEndINdex: 3,
       pagesLength: 0,
-      unextable: false,
-      unprevable: true
     };
 
     this.paginate = this.paginate.bind(this)
-    this.prev = this.prev.bind(this)
-    this.next = this.next.bind(this)
   }
   
-  updatePages(){
-    if(this.state.currentPage >= 1){
-      this.setState({unprevable: false})
-    }else if(this.state.currentPage < 1){
-      this.setState({unprevable: true})
-    }
-    if(this.state.currentPage <= this.state.pagesLength && this.state.currentPage >= 1){
-      this.setState({unextable: false})
-    }else if(this.state.currentPage > this.state.pagesLength){
-      this.setState({unextable: true})
-    }
-  }
-
-  prev(){
-    let cur = this.state.currentPage;
-    let next = cur - 1
-    this.setState({currentPage: next})
-    this.updatePages() 
-  }
-
-  next(){
-    let cur = this.state.currentPage;
-    let next = cur + 1
-    this.setState({currentPage: next})
-    this.updatePages()
-
-  }
 
   paginate(pageNumber){
     this.setState({currentPage: pageNumber})
-    this.updatePages()
+    if(pageNumber!=1 && pageNumber != this.state.pagesLength){
+      this.setState({paginationStartINdex: pageNumber - 2})
+      this.setState({paginationEndINdex: pageNumber + 1 })
+    } else if(pageNumber == 1){
+      this.setState({paginationStartINdex: 0})
+      this.setState({paginationEndINdex: 3})
+    }else if(pageNumber == this.state.pagesLength){
+      this.setState({paginationStartINdex: this.state.pagesLength- 3})
+      this.setState({paginationEndINdex: this.state.pagesLength})
+    }
+  
   }
   
 
   render(){
 
     const pageNumbers=[];
-    for(var i=1; i <= Math.ceil(this.state.originalData.length/this.state.elementPerPage); i++){
-      pageNumbers.push(i)
+    const numPages = Math.ceil(this.state.originalData.length/this.state.elementPerPage)
+    for(var i=1; i <= numPages; i++){
+      pageNumbers.push(i);
     }
     
 
@@ -144,13 +126,14 @@ class TableELement extends Component {
             </Table>
             <nav>
             <ul className = "pagination">
-                <button onClick={() => this.prev()} disabled={this.state.unprevable}> Prev </button>
-                {pageNumbers.map(number => {
+                <li className="page-item"> <button onClick={()=>this.paginate(1)} className ="page-link btn-page">First</button></li>
+                {pageNumbers.slice(this.state.paginationStartINdex, this.state.paginationEndINdex).map(number => {
                     return( < li className="page-item">
-                        <button onClick={()=>this.paginate(number)} className ="page-link">{number}</button>
+                        <button onClick={()=>this.paginate(number)} className ={`page-link ${this.state.currentPage == number? "page-selected" : ""}`}>{number}</button>
                     </li>);
                 })}
-                <button onClick={() => this.next()} disabled={this.state.unextable} >Next</button>
+                <li className="page-item"> <button onClick={()=>this.paginate(this.state.pagesLength)} className ="page-link btn-page">Last</button></li>
+                
             </ul>
         </nav>
       </Fragment>

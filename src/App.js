@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react'
 import Sidebar from './Components/Sidebar'
 import Cursos from './Pages/Cursos'
-import NewCourse from './Pages/Cursos/Novo Curso/index'
+import NovoCurso from './Pages/Cursos/Novo Curso/index'
 
 
 function App() {

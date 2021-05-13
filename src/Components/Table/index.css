@@ -52,3 +52,39 @@ td{
   display:flex;
   justify-content: center;
 }
+
+.page-link{
+  border: none;
+  margin-left: 2px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #1E625A;
+  cursor: pointer;
+  width:50px;
+  height:30px;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.button-page{
+  width: 60px;
+}
+
+.page-link:hover{
+  opacity: 70%;
+}
+
+.page-selected{
+  background-color: #00AD9C;
+}
+
+.btn-page{
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 60px;
+  text-align: center;
+
+}
